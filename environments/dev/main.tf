@@ -21,6 +21,10 @@ provider "google" {
   project = "${var.project}"
 }
 
+project = var.project
+region = var.region
+zone = var.zone
+
 module "vpc" {
   source  = "../../modules/vpc"
   project = "${var.project}"
