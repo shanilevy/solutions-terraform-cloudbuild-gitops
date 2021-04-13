@@ -74,23 +74,13 @@ module "gcs_buckets" {
   source  = "terraform-google-modules/cloud-storage/google"
   version = "1.7.2"
 
-  name       = "dataops-bucket-1234"
+  names       = ["dataops-bucket-1234"]
   prefix = "dataops-prefix"
   project_id = var.project_id
   location   = "us-east1"
 
-  lifecycle_rules = [{
-    action = {
-      type = "Delete"
-    }
-    condition = {
-      age        = 365
-      with_state = "ANY"
-    }
-  }]
-
-  #iam_members = [{
-  #  role   = "roles/storage.viewer"
-  #  member = "user:example-user@example.com"
-  #}]
+  set_admin_roles = true
+  versioning = {
+    first = true
+  }
 }
