@@ -72,9 +72,10 @@ module "bigquery" {
   
 module "gcs_buckets" {
   source  = "terraform-google-modules/cloud-storage/google"
-  version = "~> 1.7"
+  version = "1.7.2"
 
   name       = "dataops-bucket-1234"
+  prefix = "dataops-prefix"
   project_id = var.project_id
   location   = "us-east1"
 
