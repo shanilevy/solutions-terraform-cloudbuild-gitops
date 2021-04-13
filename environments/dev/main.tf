@@ -76,7 +76,7 @@ module "gcs_buckets" {
 
   names       = ["dataops-bucket-1234"]
   prefix = "dataops-prefix"
-  project_id = var.project_id
+  project_id = var.project
   location   = "us-east1"
 
   set_admin_roles = true
