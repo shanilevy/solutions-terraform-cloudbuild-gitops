@@ -45,7 +45,7 @@ module "bigquery" {
   dataset_id                 = "dwh"
   dataset_name               = "dwh"
   description                = "Our main data warehouse located in the US"
-  project_id                 = "${var.project}"
+  project_id                 = var.project
   location                   = "US"
   delete_contents_on_destroy = true
   tables = [
