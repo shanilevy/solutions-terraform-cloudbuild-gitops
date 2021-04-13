@@ -41,6 +41,7 @@ module "firewall" {
   
 module "bigquery" {
   source                     = "terraform-google-modules/bigquery/google"
+  version = "~> 4.4"
   #project                    = "${var.project}"
   dataset_id                 = "dwh_us"
   dataset_name               = "dw"
@@ -61,14 +62,14 @@ module "bigquery" {
       clustering = [ "wiki", "title" ],
       labels = {
         env      = "dev"
-        #billable = "true"
+        billable = "true"
         #owner    = "joedoe"
       },
     }
   ]
   dataset_labels = {
     env      = "dev"
-    #billable = "true"
+    billable = "true"
     #owner    = "janesmith"
   }
 }
