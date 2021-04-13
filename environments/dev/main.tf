@@ -40,7 +40,8 @@ module "firewall" {
 }
   
 module "bigquery" {
-  source                     = "github.com/terraform-google-modules/terraform-google-bigquery"
+  source                     = "../../modules/udf"
+  project                    = "${var.project}"
   dataset_id                 = "dwh_us"
   dataset_name               = "dw"
   description                = "Our main data warehouse located in the US"
