@@ -41,7 +41,7 @@ module "firewall" {
   
 module "bigquery" {
   source                     = "terraform-google-modules/bigquery/google"
-  version                    = "4.4"
+  version                    = "4.5.0"
   dataset_id                 = "dwh"
   dataset_name               = "dwh"
   description                = "Our main data warehouse located in the US"
