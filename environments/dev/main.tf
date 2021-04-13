@@ -41,7 +41,7 @@ module "firewall" {
   
 module "bigquery" {
   source                     = "terraform-google-modules/bigquery/google"
-  version                    = "5.0.0"
+  version                    = "~> 4.4"
   #project                    = "${var.project}"
   dataset_id                 = "dwh_us"
   dataset_name               = "dw"
