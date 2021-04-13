@@ -51,7 +51,11 @@ module "bigquery" {
     {
       table_id           = "wikipedia_pageviews_2021",
       schema             = "schemas/pageviews_2021.schema.json",
-      time_partitioning  = null,
+      time_partitioning {
+        type  = "DAY"
+        field = "datehour"
+        require_partition_filter = true
+      }
       range_partitioning = null,
       expiration_time    = 2524604400000, # 2050/01/01
       clustering = [ "wiki", "title" ],
