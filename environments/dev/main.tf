@@ -69,3 +69,27 @@ module "bigquery" {
     owner    = "janesmith"
   }
 }
+  
+module "gcs_buckets" {
+  source  = "terraform-google-modules/cloud-storage/google"
+  version = "~> 1.7"
+
+  name       = "dataops-bucket-1234"
+  project_id = var.project_id
+  location   = "us-east1"
+
+  lifecycle_rules = [{
+    action = {
+      type = "Delete"
+    }
+    condition = {
+      age        = 365
+      with_state = "ANY"
+    }
+  }]
+
+  #iam_members = [{
+  #  role   = "roles/storage.viewer"
+  #  member = "user:example-user@example.com"
+  #}]
+}
