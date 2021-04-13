@@ -56,7 +56,6 @@ module "bigquery" {
         field = "datehour"
         require_partition_filter = true
       }
-      range_partitioning = null,
       expiration_time    = 2524604400000, # 2050/01/01
       clustering = [ "wiki", "title" ],
       labels = {
