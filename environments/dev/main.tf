@@ -40,7 +40,7 @@ module "firewall" {
 }
   
 module "bigquery" {
-  source                     = "../../modules/"
+  source                     = "../"
   dataset_id                 = "dwh_us"
   dataset_name               = "dw"
   description                = "Our main data warehouse located in the US"
