@@ -23,7 +23,7 @@ provider "google" {
 
 module "vpc" {
   source  = "../../modules/vpc"
-  project = var.project}
+  project = var.project
   env     = local.env
 }
 
