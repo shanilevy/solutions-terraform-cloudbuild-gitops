@@ -53,7 +53,7 @@ module "bigquery" {
     {
       table_id           = "wikipedia_pageviews_2021",
       schema             = "schemas/pageviews_2021.schema.json",
-      time_partitioning {
+      time_partitioning = {
         type  = "DAY"
         field = "datehour"
         require_partition_filter = true
