@@ -38,3 +38,33 @@ module "firewall" {
   project = "${var.project}"
   subnet  = "${module.vpc.subnet}"
 }
+  
+module "bigquery" {
+  source                     = "../.."
+  dataset_id                 = "dwh_us"
+  dataset_name               = "dw"
+  description                = "Our main data warehouse located in the US"
+  project_id                 = var.project_id
+  location                   = "US"
+  delete_contents_on_destroy = var.delete_contents_on_destroy
+  tables = [
+    {
+      table_id           = "wikipedia_pageviews_2021",
+      schema             = file("schemas/pageviews_2021.schema.json"),
+      time_partitioning  = null,
+      range_partitioning = null,
+      expiration_time    = 2524604400000, # 2050/01/01
+      clustering = [ "wiki", "title" ],
+      labels = {
+        env      = "dev"
+        #billable = "true"
+        #owner    = "joedoe"
+      },
+    }
+  ]
+  dataset_labels = {
+    env      = "dev"
+    #billable = "true"
+    #owner    = "janesmith"
+  }
+}
