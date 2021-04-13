@@ -40,15 +40,15 @@ module "firewall" {
 }
   
 module "bigquery" {
-  source                     = "terraform-google-modules/bigquery/google"
-  version                    = "~> 4.4"
+  source                     = "terraform-google-modules/bigquery/google",
+  version                    = "~> 4.4",
   #project                    = "${var.project}"
-  dataset_id                 = "dwh_us"
-  dataset_name               = "dw"
-  description                = "Our main data warehouse located in the US"
-  project_id                 = "${var.project}"
-  location                   = "US"
-  delete_contents_on_destroy = true
+  dataset_id                 = "dwh_us",
+  dataset_name               = "dw",
+  description                = "Our main data warehouse located in the US",
+  project_id                 = "${var.project}",
+  location                   = "US",
+  delete_contents_on_destroy = true,
   tables = [
     {
       table_id           = "wikipedia_pageviews_2021",
