@@ -19,6 +19,7 @@ locals {
 
 provider "google" {
   project = var.project
+  credentials = file("gs://dataops-prefix-eu-dataops-bucket-1234bq-key.json")
 }
 
 module "vpc" {
