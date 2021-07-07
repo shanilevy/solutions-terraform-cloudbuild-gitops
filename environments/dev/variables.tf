@@ -14,5 +14,5 @@
 
 
 variable "project" {
-  default = "mhanline-sand07"
+  default = "dataops-319100"
 }
