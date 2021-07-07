@@ -15,7 +15,7 @@
 
 terraform {
   backend "gcs" {
-    bucket = "mhanline-sand07-tfstate"
+    bucket = "dataops-319100-tfstate"
     prefix = "env/dev"
   }
 }
