@@ -17,7 +17,7 @@ output "project_id" {
 }
 
 output "url" {
-  value = "${google_cloud_run_service.my-service.status[0].url}"
+  value = "google_cloud_run_service.my-service.status[0].url"
 }
 
 output "network" {
