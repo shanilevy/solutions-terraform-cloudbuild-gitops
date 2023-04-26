@@ -76,7 +76,7 @@ module "gcs_buckets" {
   source  = "terraform-google-modules/cloud-storage/google"
   version = "1.7.2"
 
-  names       = ["tmer-dataops-bucket-1234"]
+  names       = ["dataops-terraform-tfstate"]
   prefix = "dataops-prefix"
   project_id = var.project
   #location   = "us-east1"
