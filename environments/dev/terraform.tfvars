@@ -1,3 +1,6 @@
-project="dataops-319100"
-project_id  = "dataops-319100"                   # Put your GCP Project ID.
-#bucket_name = "dataops-bucket-1234"    # Put the desired GCS Bucket name.
+project_name = "dataops-terraform"
+region = "us-central1"
+zone = "us-central1-a"
+gcr_region = "us"
+service_name = "config-service"
+repository_name = "config-app"
