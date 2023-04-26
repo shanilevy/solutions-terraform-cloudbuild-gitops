@@ -23,11 +23,13 @@ provider "google" {
   zone = var.zone
 }
 
-# With this backend configuration we are telling Terraform that the
-# created state should be saved in some Google Cloud Bucket with some prefix
-  backend "gcs" {
-    bucket = "dataops-terraform-tfstate"
-    prefix = "terraform/state"
+resource "google_storage_bucket" "default" {
+  name          = "dataops-terraform-tfstate"
+  force_destroy = false
+  location      = "US"
+  storage_class = "STANDARD"
+  versioning {
+    enabled = true
   }
 }
 
