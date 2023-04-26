@@ -79,22 +79,7 @@ module "bigquery" {
     owner    = "janesmith"
   }
 }
-  
-module "gcs_buckets" {
-  source  = "terraform-google-modules/cloud-storage/google"
-  version = "1.7.2"
-
-  names       = ["dataops-terraform-tfstate"]
-  prefix = "dataops-prefix"
-  project_id = var.project
-  #location   = "us-east1"
-
-  set_admin_roles = true
-  versioning = {
-    first = true
-  }
-}
-  
+   
 resource "google_cloudbuild_trigger" "example" {
   project = "example"
   name    = "example"
