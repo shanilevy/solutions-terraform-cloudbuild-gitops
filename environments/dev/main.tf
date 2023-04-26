@@ -18,8 +18,9 @@ locals {
 }
 
 provider "google" {
-  project = var.project
-  #credentials = file("gs://dataops-prefix-eu-dataops-bucket-1234/bq-key.json")
+  project = var.project_name
+  region = var.region
+  zone = var.zone
 }
 
 module "vpc" {
@@ -84,4 +85,73 @@ module "gcs_buckets" {
   versioning = {
     first = true
   }
+}
+  
+resource "google_cloudbuild_trigger" "example" {
+  project = "example"
+  name    = "example"
+
+  source_to_build {
+    repo_type = "GITHUB"
+    uri       = "https://github.com/binxio/scheduled-trigger-example"
+    ref       = "refs/heads/main"
+  }
+
+  git_file_source {
+    path = "cloudbuild.yaml"
+
+    repo_type = "GITHUB"
+    uri       = "https://github.com/binxio/scheduled-trigger-example"
+    revision  = "refs/heads/main"
+  }
+}
+
+resource "google_project_service" "registry" {
+  service = "containerregistry.googleapis.com"
+  disable_on_destroy = false
+}
+
+resource "google_project_service" "run" {
+  service = "run.googleapis.com"
+  disable_on_destroy = false
+}
+
+resource "google_cloud_run_service" "my-service" {
+  name = var.service_name
+  location = var.region
+
+  template  {
+    spec {
+    containers {
+            image = "gcr.io/cloudrun/hello"
+    }
+  }
+  }
+  depends_on = [google_project_service.run]
+}
+
+resource "google_cloud_run_service_iam_member" "allUsers" {
+  service  = google_cloud_run_service.my-service.name
+  location = google_cloud_run_service.my-service.location
+  role     = "roles/run.invoker"
+  member   = "allUsers"
+}
+
+resource "google_service_account" "build_runner" {
+  project      = "example"
+  account_id   = "build-runner"
+}
+  
+resource "google_project_iam_custom_role" "build_runner" {
+  project     = "example"
+  role_id     = "buildRunner"
+  title       = "Build Runner"
+  description = "Grants permissions to trigger Cloud Builds."
+  permissions = ["cloudbuild.builds.create"]
+}
+
+resource "google_project_iam_member" "build_runner_build_runner" {
+  project = "example"
+  role    = google_project_iam_custom_role.build_runner.name
+  member  = "serviceAccount:${google_service_account.build_runner.email}"
 }
