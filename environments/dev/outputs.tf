@@ -12,6 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+output "project_id" {
+  value = var.project_name
+}
+
+output "url" {
+  value = "${google_cloud_run_service.my-service.status[0].url}"
+}
 
 output "network" {
   value = module.vpc.network
