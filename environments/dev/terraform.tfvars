@@ -1,4 +1,4 @@
-project_name = "dataops-terraform"
+project = "dataops-terraform"
 region = "us-central1"
 zone = "us-central1-a"
 gcr_region = "us"
