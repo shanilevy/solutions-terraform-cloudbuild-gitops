@@ -37,21 +37,19 @@ resource "google_storage_bucket" "default" {
 }
 
 resource "google_cloudbuild_trigger" "example" {
-  project = "example"
-  name    = "example"
+  name        = "example"
 
   source_to_build {
-    repo_type = "GITHUB"
     uri       = "https://github.com/binxio/scheduled-trigger-example"
     ref       = "refs/heads/main"
-  }
-
-  git_file_source {
-    path = "cloudbuild.yaml"
-
     repo_type = "GITHUB"
+}
+
+git_file_source {
+    path      = "cloudbuild.yaml"
     uri       = "https://github.com/binxio/scheduled-trigger-example"
     revision  = "refs/heads/main"
+    repo_type = "GITHUB"
   }
 }
 
