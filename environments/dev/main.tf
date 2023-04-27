@@ -36,55 +36,6 @@ resource "google_storage_bucket" "default" {
   }
 }
 
-module "vpc" {
-  source  = "../../modules/vpc"
-  project = var.project
-  env     = local.env
-}
-
-module "http_server" {
-  source  = "../../modules/http_server"
-  project = var.project
-  subnet  = module.vpc.subnet
-}
-
-module "firewall" {
-  source  = "../../modules/firewall"
-  project = var.project
-  subnet  = module.vpc.subnet
-}
-  
-module "bigquery" {
-  source                     = "terraform-google-modules/bigquery/google"
-  version                    = "4.5.0"
-  dataset_id                 = "dwh"
-  dataset_name               = "dwh"
-  description                = "Our main data warehouse located in the US"
-  project_id                 = var.project
-  location                   = "US"
-  delete_contents_on_destroy = true
-  tables = [
-    {
-      table_id           = "wikipedia_pageviews_2021",
-      schema             = "schemas/pageviews_2021.schema.json",
-      time_partitioning  = null,
-      range_partitioning = null,
-      expiration_time    = 2524604400000, # 2050/01/01
-      clustering = [ "wiki", "title" ],
-      labels = {
-        env      = "devops"
-        billable = "true"
-        owner    = "joedoe"
-      },
-    }
-  ]
-  dataset_labels = {
-    env      = "dev"
-    billable = "true"
-    owner    = "janesmith"
-  }
-}
-   
 resource "google_cloudbuild_trigger" "example" {
   project = "example"
   name    = "example"
@@ -152,4 +103,53 @@ resource "google_project_iam_member" "build_runner_build_runner" {
   project = "example"
   role    = google_project_iam_custom_role.build_runner.name
   member  = "serviceAccount:${google_service_account.build_runner.email}"
+}
+
+module "vpc" {
+  source  = "../../modules/vpc"
+  project = var.project
+  env     = local.env
+}
+
+module "http_server" {
+  source  = "../../modules/http_server"
+  project = var.project
+  subnet  = module.vpc.subnet
+}
+
+module "firewall" {
+  source  = "../../modules/firewall"
+  project = var.project
+  subnet  = module.vpc.subnet
+}
+  
+module "bigquery" {
+  source                     = "terraform-google-modules/bigquery/google"
+  version                    = "4.5.0"
+  dataset_id                 = "dwh"
+  dataset_name               = "dwh"
+  description                = "Our main data warehouse located in the US"
+  project_id                 = var.project
+  location                   = "US"
+  delete_contents_on_destroy = true
+  tables = [
+    {
+      table_id           = "wikipedia_pageviews_2021",
+      schema             = "schemas/pageviews_2021.schema.json",
+      time_partitioning  = null,
+      range_partitioning = null,
+      expiration_time    = 2524604400000, # 2050/01/01
+      clustering = [ "wiki", "title" ],
+      labels = {
+        env      = "devops"
+        billable = "true"
+        owner    = "joedoe"
+      },
+    }
+  ]
+  dataset_labels = {
+    env      = "dev"
+    billable = "true"
+    owner    = "janesmith"
+  }
 }
