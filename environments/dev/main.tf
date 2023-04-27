@@ -38,7 +38,6 @@ resource "google_storage_bucket" "default" {
 
 resource "google_cloudbuild_trigger" "example" {
   name        = "example"
-
   source_to_build {
     uri       = "https://github.com/binxio/scheduled-trigger-example"
     ref       = "refs/heads/main"
