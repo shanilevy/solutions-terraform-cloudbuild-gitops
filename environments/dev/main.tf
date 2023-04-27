@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+locals {
+  env = "dev"
+}
+
 provider "google" {
   project = var.project
   region = var.region
