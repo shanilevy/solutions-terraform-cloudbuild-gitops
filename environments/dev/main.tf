@@ -43,9 +43,9 @@ resource "google_cloudbuild_trigger" "example" {
     uri       = "https://github.com/binxio/scheduled-trigger-example"
     ref       = "refs/heads/main"
     repo_type = "GITHUB"
-}
+  }
 
-git_file_source {
+  git_file_source {
     path      = "cloudbuild.yaml"
     uri       = "https://github.com/binxio/scheduled-trigger-example"
     revision  = "refs/heads/main"
