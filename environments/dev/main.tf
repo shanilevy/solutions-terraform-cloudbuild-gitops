@@ -40,10 +40,6 @@ resource "google_cloudbuild_trigger" "example" {
   name = "example"
   filename = "cloudbuild.yaml"
 
-  trigger_template {
-    branch_name = ".*"
-  }
-
   github {
     owner = "binxio"
     name = "scheduled-trigger-example"
