@@ -13,7 +13,7 @@
 # limitations under the License.
 
 output "project" {
-  value = var.project_name
+  value = var.project
 }
 
 output "url" {
